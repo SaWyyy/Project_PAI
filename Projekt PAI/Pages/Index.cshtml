@@ -1,0 +1,105 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@using Microsoft.AspNetCore.Identity
+@using Projekt_PAI.Model
+@inject SignInManager<IdentityUser> SignInManager
+
+
+
+@if (!SignInManager.IsSignedIn(User))
+{
+      <header class="bg-primary text-white text-center py-5 mb-4">
+      <div class="container">
+        <h1>Witaj w Wypożyczalni Książek Online!</h1>
+        <p class="lead">Twoje ulubione książki, teraz dostępne zawsze i wszędzie.</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <!-- Sekcja Nowości -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Nowości</h2>
+              <p class="card-text">Sprawdź najnowsze tytuły dodane do naszej kolekcji.</p>
+              <a href="/Login" class="btn btn-primary">Zobacz więcej</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sekcja Popularne Książki -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Popularne Książki</h2>
+              <p class="card-text">Odkryj książki, które cieszą się największym zainteresowaniem.</p>
+              <a href="/Login" class="btn btn-primary">Zobacz więcej</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sekcja Rekomendacje -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h2 class="card-title">Rekomendacje</h2>
+              <p class="card-text">Nie wiesz, co przeczytać? Zobacz nasze propozycje!</p>
+              <a href="/Login" class="btn btn-primary">Zobacz więcej</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sekcja O Nas -->
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="my-4">O Nas</h2>
+          <p>Jesteśmy pasjonatami książek, którzy chcą dzielić się swoją miłością do czytania z całym światem. Nasza wypożyczalnia oferuje szeroki zakres tytułów z różnych gatunków, dostępnych online dla każdego, kto kocha książki tak samo jak my.</p>
+        </div>
+      </div>
+    </div>
+}
+else
+{
+    <br />
+    <h2>Lista dostępnych pozycji</h2>
+    <br />
+    <form method="post" asp-page-handler="Search" id="searchForm">
+        <div style="display: flex; align-items:center;">
+                <input type="text" class="form-control" placeholder="Wyszukaj" name="searchBar" value="@Model.searchBar" />
+                <button type="submit" class="btn btn-primary" for="searchForm">Szukaj</button>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Autor</th>
+                <th>Tytuł</th>
+                <th>Gatunek</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Books)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Author</td>
+                    <td>@book.Title</td>
+                    <td>@book.Genre</td>
+                    <td>
+                        <form method="post" asp-page-handler="AddToOrder" id="addToOrderForm_@book.Id">
+                            <input type="hidden" name="bookId" value="@book.Id" />
+                            <button type="submit" class="btn btn-primary btn-sm">Dodaj</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

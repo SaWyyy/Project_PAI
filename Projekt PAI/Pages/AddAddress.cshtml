@@ -1,0 +1,35 @@
+﻿@page
+@model Projekt_PAI.Pages.AddAddressModel
+@{
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h1 class="mb-3">Adres dostawy</h1>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.StreetAndNr">Adres i numer domu</label>
+                    <input type="text" asp-for="Model.StreetAndNr" class="form-control" />
+                    <span asp-validation-for="Model.StreetAndNr" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.City">Miasto</label>
+                    <input type="text" asp-for="Model.City" class="form-control" />
+                    <span asp-validation-for="Model.City" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.PostalCode">Kod pocztowy</label>
+                    <input type="text" asp-for="Model.PostalCode" class="form-control" />
+                    <span asp-validation-for="Model.PostalCode" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" asp-for="Model.UserId" />
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Zatwierdź</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

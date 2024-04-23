@@ -1,0 +1,19 @@
+﻿@page
+@model Projekt_PAI.Pages.LogoutModel
+@{
+}
+
+<form method="post">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <p class="text-center">Czy na pewno chcesz się wylogować?</p>
+                <p class="text-center">
+                    <button class="btn btn-primary" asp-page-handler="Logout">Tak</button>
+                    <button class="btn btn-light ml-5 border-dark" asp-page-handler="DontLogout">Nie</button>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</form>

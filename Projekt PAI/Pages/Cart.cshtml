@@ -1,0 +1,48 @@
+﻿@page
+@model Projekt_PAI.Pages.CartModel
+@{
+}
+
+@if(Model.Orders.Count == 0)
+{
+    <br />
+    <h2>Twój koszyk jest pusty</h2>
+    <br />
+}
+else
+{
+    <br />
+    <h2>Twój koszyk</h2>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Autor</th>
+                <th>Tytuł</th>
+                <th>Gatunek</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Author</td>
+                    <td>@order.Title</td>
+                    <td>@order.Genre</td>
+                    <td>
+                        <form method="post" asp-page-handler="DeleteFromOrder" id="deleteFromOrderForm_@order.Id">
+                            <input type="hidden" name="orderId" value="@order.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-end">
+        <a class="btn btn-primary" href="/AddAddress">Przejdź do dostawy</a>
+    </div>
+}
